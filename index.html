@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <title>Bootstrap demo</title>
+  </head>
+  <body>
+    <center>
+    <div class="container"  style="border: 2px solid white; width: 50%; background-color: whitesmoke;">
+        <h1>GitHub User Finder</h1>
+        <form id="user-form" action="">
+        <input type="text" id="username" placeholder="Enter GitHub username" required>
+        <input id="submit" type="submit" value="Search">
+    </form>
+    <div id="user-info"></div>
+    <div class="error" id="error-msg"></div>
+</div>
+    </center>
+
+    <script>
+        document.querySelector('#user-form').addEventListener('submit', async (e) => {
+          e.preventDefault();
+         const username = document .getElementById('username').value.trim();
+         if (!username) return;
+         document.getElementById('user-info').innerHTML ='';
+         document.getElementById('error-msg').textContent ='';
+         
+
+         try{
+            const userRes =await fetch (`https://api.github.com/users/${username}`)
+            if (!userRes.ok){
+            document. getElementById('error-msg').textContent =('User not found')}
+            const user = await userRes.json();
+
+            const reposRes = await fetch(`https://api.github.com/users/${username}/repos?sort=created&per_page=5`);
+        const repos = await reposRes.json();
+
+        document.getElementById('user-info').innerHTML =`
+                <img src ='${user.avatar_url}' alt=""  class="avatar">
+                <h2><a href="${user.html_url}" target="-blank" > ${user.name|| user.login}  </a></h2>
+                <p>${user.bio|| ''} </p>
+                <p> Public Repos: ${user.public_repos}</p>
+                <p>Followers: ${user.followers}</p>
+                <h3>Lastest Repositories:</h3>
+                <ul class="repos">
+                    ${repos.map(repo=>`<li><a href="${repo.html_url} " target="blank">${repo.name}</a></li>`).join('')}
+                    </ul>
+                    `;
+                } catch (err) {
+                    document.getElementById('error-msg').textContent= err.message;
+            }
+        });
+    </script>
+  </body>
+</html>

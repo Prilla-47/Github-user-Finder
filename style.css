@@ -1,0 +1,54 @@
+ body {
+      font-family: Arial, sans-serif;
+      background-color: cornflowerblue;
+      text-align: center;
+      padding: 40px;
+    }
+    #user-form {
+      margin-bottom: 20px;
+      
+    }
+    #username {
+      padding: 10px;
+      width: 250px;
+    }
+    #submit {
+      padding: 10px 15px;
+    }
+    #user-info {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      display: inline-block;
+      text-align: left;
+      max-width: 400px;
+      margin-top: 20px;
+    }
+    img.avatar {
+      width: 100px;
+      border-radius: 50%;
+    }
+    ul.repos {
+      list-style-type: none;
+      padding: 0;
+    }
+    ul.repos li {
+    
+      background-color: aliceblue;
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 5px;
+    }
+    a{
+      text-decoration: none;
+    }
+    .error {
+      color: red;
+      margin-top: 20px;
+    }
+    #submit:hover{
+      background-color: darkgreen;
+      transition: 0.2s ease-in-out;
+      border: 0px;
+
+    }
